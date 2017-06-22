@@ -1,0 +1,72 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption font-green-soft">
+            <i class="fa fa-pencil-square-o font-green-soft"></i>
+            <span class="caption-subject bold uppercase">编辑访问权限</span>
+        </div>
+        <div class="actions" style="float:left; display:inline; margin-left:10px;">
+            <a class="btn default" href="javascript:history.go(-1);">
+                <i class="fa fa-angle-left"></i> 返回
+            </a>
+        </div>
+    </div>
+
+    <div class="portlet-body form">
+        <form role="form" action="/manager/Index/rules_edit" method="post" class="form-horizontal" data-jump="back" data-modal="0" data-refresh="0">
+            <div class="form-body">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">允许访问的url</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="url_name" value="{$rule_data['name']}">
+                        <span class="help-block">（路由名称的url）</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">权限名称</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="rule_title" value="{$rule_data['title']}">
+                        <span class="help-block">（例如：后台XXX功能）</span>
+                    </div>
+                </div>
+
+                {if condition="$rule_data.type!=$Think.config.RULE_GROUP_ID"}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">类型</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="type">
+                            {php}
+                                $rule_group=get_cache('auth_rule_group');   //获取缓存里的权限组
+                            {/php}
+                            {volist name="rule_group" id="vo"}
+                                {if condition="$vo.id != $Think.config.RULE_GROUP_ID"}
+                                    <option value="{$vo.id}" data-test="{$vo.id}" {if condition="$vo.id==$rule_data.type"}selected="selected"{/if}>{$vo.title}</option>
+                                {/if}
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                {/if}
+
+            </div>
+
+            <input type="hidden" name="id" value="{$rule_data.id}">
+
+            <div class="form-actions text-center">
+                <button type="button" class="btn btn-lg blue submit_btn" style="min-width:120px;">确定</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:history.go(-1);" class="btn btn-lg default">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END SAMPLE FORM PORTLET-->
+</div>
+{/block}

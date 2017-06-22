@@ -1,0 +1,394 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="footer_script"}
+<script type="text/javascript">
+    $().ready(function($){
+        //Custom.CloseSideMenu(); //默认关闭侧边栏
+        Custom.NowPageMenu('.member_left_order','.member_left_trash');  //左边栏菜单的当前页面激活效果显示，参数（栏目菜单对象，一级子菜单对象，二级子菜单对象）
+    });
+</script>
+{/block}
+
+{block name="body"}
+<style type="text/css">
+.portlet>.portlet-title>.caption{font-size: 15px;}
+.checkbox-inline, .radio-inline{margin-bottom: 10px;}
+</style>
+
+<div class="col-md-12 col-sm-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-soft">
+                <i class="fa fa-pencil-square-o font-green-soft"></i>
+                <span class="caption-subject bold uppercase">数据清理</span>
+            </div>
+            <div class="actions" style="float:left; display:inline; margin-left:10px;">
+                <a class="btn default" href="javascript:history.go(-1);">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+            <div class="actions">
+                <a class="btn default" href="javascript:history.go(-1);">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </div>
+
+        <div class="portlet-body form">
+            <!-- <form role="form" class="form-horizontal"> -->
+                <div class="form-body">
+
+                    <!-- 清理缓存 开始 ↓ -->
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> 清理缓存 
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='cache'>
+                                <div class="form-body">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="table_name"> 表名
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="money_list"> 用户金额
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="all_table_name"> 所有注单表名
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="inline"> 在线人数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="tixian_notice"> 前台提现提醒
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="msg_notice"> 前台消息提醒
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_cq"> 重庆时时彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_gxklsf"> 广西快乐十分期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_tjssc"> 天津时时彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_xjssc"> 新疆时时彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_cq11"> 重庆11选5期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_gd11"> 广东11选5期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_11dj"> 十一运夺金期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_3d"> 福彩3D期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_xglhc"> 香港六合彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_nbjsc"> 北京赛车期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_gxk3"> 广西快三期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_pl3"> 排列三期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_kk5m"> 新快开5分彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_js2m"> 新极速2分彩期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_hg1d5"> 韩国1.5期数
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="history_ngxklsf"> 广西快乐十分期数
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_cache_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理缓存 结束 ↑ -->
+
+                    <!-- 清理三个月之前的数据库数据 开始 ↓ -->
+                    <div class="portlet box purple">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar-minus-o"></i> 清理三个月之前的数据库数据
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='month3'>
+                                <div class="form-body">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="admoplog-opTime"> 管理员日志表(admoplog)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="czonline-addtime"> czonline表
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="excdata-addtime"> 下注和中奖金额记录表(excdata)
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history-date"> 老期数表(history)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_11dj-date"> 十一运夺金期数表(history_11dj)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_2m-date"> 老极速2分彩期数表(history_2m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_3d-date"> 福彩3d期数表(history_3d)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_bjkl8-date"> 北京快8期数表(history_bjkl8)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_nbjsc-date"> 北京赛车期数表(history_nbjsc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_cq-date"> 重庆时时彩期数表(history_cq)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_cq11-date"> 重庆11选5期数表(history_cq11)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_gd11-date"> 广东11选5期数表(history_gd11)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_gxk3-date"> 广西快3期数表(history_gxk3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_ngxklsf-date"> 广西快乐十分期数表(history_ngxklsf)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_hg1d5-date"> 韩国1.5期数表(history_hg1d5)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_hljssc-date"> 黑龙江时时彩期数表(history_hljssc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_js2m-date"> 新极速2分彩期数表(history_js2m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_jsk3-date"> 江苏快3期数表(history_jsk3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_jxdlc-date"> 江西多乐彩期数表(history_jxdlc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_kk5m-date"> 新快开5分彩期数表(history_kk5m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_pl3-date"> 排列三彩期数表(history_pl3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_shssl-date"> 上海时时乐期数表(history_shssl)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_threed-date"> 老香港六合彩期数表(history_threed)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_tjssc-date"> 天津时时彩期数表(history_tjssc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_xglhc-date"> 香港六彩期数表(history_xglhc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="history_xjssc-date"> 新疆时时彩期数表(history_xjssc)
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="loginlog-ltime"> 登录日志(loginlog)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="msg-addtime"> 提现提醒信息(msg)
+                                            </label>
+                                            <!-- <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="msg_user-addtime"> 提现提醒信息用户表(msg_user)
+                                            </label> -->
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_date" value="my18_pay_temp-o_time"> 支付的临时信息(my18_pay_temp)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="record-addtime"> 流水记录表(record)
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="trade-tradtime"> 交易表(trade)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_month3_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理三个月之前的数据库数据 结束 ↑ -->
+
+                    <!-- 清理三个月之前的注单数据库数据 开始 ↓ -->
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar-minus-o"></i> 清理三个月之前的注单数据库数据
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='month3_zhudan'>
+                                <div class="form-body">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan-shijian"> 老注单表(zhudan)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_11dj-shijian"> 十一运夺金注单表(zhudan_11dj)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_2m-shijian"> 老极速2分彩注单表(zhudan_2m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_3d-shijian"> 福彩3d注单表(zhudan_3d)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_5m-shijian"> 老快开5分彩注单表(zhudan_5m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_nbjsc-shijian"> 北京赛车注单表(zhudan_nbjsc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_cq-shijian"> 重庆时时彩注单表(zhudan_cq)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_cq11-shijian"> 重庆11选5注单表(zhudan_cq11)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_gd11-shijian"> 广东11选5注单表(zhudan_gd11)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_gxk3-shijian"> 广西快3注单表(zhudan_gxk3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_ngxklsf-shijian"> 广西快乐十分注单表(zhudan_ngxklsf)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_hg1d5-shijian"> 韩国1.5注单表(zhudan_hg1d5)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_hljssc-shijian"> 黑龙江时时彩注单表(zhudan_hljssc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_js2m-shijian"> 新极速2分彩注单表(zhudan_js2m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_jsk3-shijian"> 江苏快3注单表(zhudan_jsk3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_jxdlc-shijian"> 江西多乐彩注单表(zhudan_jxdlc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_kk5m-shijian"> 新快开5分彩注单表(zhudan_kk5m)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_pl3-shijian"> 排列三彩注单表(zhudan_pl3)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_shssl-shijian"> 上海时时乐注单表(zhudan_shssl)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_threed-shijian"> 老香港六合彩注单表(zhudan_threed)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_tjssc-shijian"> 天津时时彩注单表(zhudan_tjssc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_xglhc-shijian"> 香港六彩注单表(zhudan_xglhc)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="time_stamp" value="zhudan_xjssc-shijian"> 新疆时时彩注单表(zhudan_xjssc)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_month3_zhudan_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理三个月之前的注单数据库数据 结束 ↑ -->
+
+                    <!-- 清理重要数据库数据 开始 ↓ -->
+                    <div class="portlet box red">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-bell-o"></i> 清理重要数据库数据
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='important'>
+                                <div class="form-body">
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="user" value="one_year"> 一年未登录的用户(user)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="msg_user" value="data3000"> 提现提醒信息用户表保留3000条数据(msg_user)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_important_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理重要数据库数据 结束 ↑ -->
+
+                </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+</div>
+
+{/block}

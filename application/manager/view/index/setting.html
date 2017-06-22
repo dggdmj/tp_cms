@@ -1,0 +1,95 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+    
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-social-dribbble font-purple-soft"></i>
+                <span class="caption-subject font-purple-soft bold uppercase">系统设置</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="col-xs-12 np" style="margin-bottom:10px;">
+                <a href="/manager/Index/setting_add" class="btn green">
+                    <i class="fa fa-plus"></i> 新增
+                </a>&nbsp;&nbsp;
+                <a href="/manager/Index/setting_del" class="btn red" style="float:right;">
+                    <i class="fa fa-trash"></i> 去删除
+                </a>
+            </div>
+
+            <!-- 选项卡标签部分 开始 ↓ -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab"> 后台设置 </a>
+                </li>
+                <!-- <li>
+                    <a href="#tab_1_2" data-toggle="tab"> 自定义 </a>
+                </li> -->
+            </ul>
+            <!-- 选项卡标签部分 结束 ↑ -->
+
+            <!-- 表单部分 开始 ↓ -->
+            <form class="form-horizontal" role="form" action="/manager/Index/setting" method="post" data-jump="0" data-modal="0" data-refresh="0">
+                <div class="tab-content">
+
+                    <!-- 选项卡内容区1 开始 ↓ -->
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="form-body">
+                            {volist name="setting" id="vo"}
+                                {switch name="vo.type_style" }
+                                    {case value="1"}
+                                        <div class="form-group" data-input-id="{$vo.id}">
+                                            <label class="col-md-3 control-label">{$vo.title}</label>
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" name="{$vo.name}" value="{$vo.val}">
+                                                {if condition="$vo.help"}<span class="help-block"> （{$vo.help}） </span>{/if}
+                                            </div>
+                                        </div>
+                                    {/case}
+
+                                    {case value="2"}
+                                        <div class="form-group" data-input-id="{$vo.id}">
+                                            <label class="col-md-3 control-label">{$vo.title}</label>
+                                            <div class="col-md-9 toggle_btn_event">
+                                                <a href="javascript:;" class="btn blue toggle_btn">{:explode(';',$vo.type_txt)[0]}</a>
+                                                <input type="hidden" class="toggle_btn_input" data-on-text="{:explode(';',$vo.type_txt)[0]}" data-off-text="{:explode(';',$vo.type_txt)[1]}" data-on-val="1" data-off-val="0" name="{$vo.name}" value="{$vo.val}">
+                                                {if condition="$vo.help"}<span class="help-block"> （{$vo.help}） </span>{/if}
+                                            </div>
+                                        </div>
+                                    {/case}
+                                    {default /}
+                                {/switch}
+                            {/volist}
+                        </div>
+                    </div>
+                    <!-- 选项卡内容区1 结束 ↑ -->
+                
+                    <!-- 选项卡内容区2 开始 ↓ -->
+                    <!--<div class="tab-pane fade" id="tab_1_2">
+                        
+                        
+
+                    </div>-->
+                    <!-- 选项卡内容区2 结束 ↑ -->
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="button" class="btn btn-lg green col-md-3 submit_btn">提交</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- 表单部分 结束 ↑ -->
+            
+        </div>
+    </div>
+
+</div>
+{/block}

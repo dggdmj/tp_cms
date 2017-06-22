@@ -1,0 +1,137 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div class="portlet light bordered">
+        <ul class="nav nav-tabs">
+
+            <li class="active">
+                <a href="#tab_1_1" data-toggle="tab"> 默认 </a>
+            </li>
+
+            <li>
+                <a href="#tab_1_2" data-toggle="tab"> 自定义1 </a>
+            </li>
+
+        </ul>
+
+
+        <div class="tab-content">
+            <!-- 环境信息 开始 ↓ -->
+            <div class="tab-pane fade active in" id="tab_1_1">
+
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-bar-chart font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">环境信息</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-hover">
+                            <tbody>
+                                <!-- <tr>
+                                    <td>接受请求的服务器IP</td>
+                                    <td>&nbsp;</td>
+                                </tr> -->
+                                <tr>
+                                    <td>服务器IP</td>
+                                    <td>{php}echo GetHostByName($_SERVER['SERVER_NAME']){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>访问者外部的ip</td>
+                                    <td>{$Think.server.REMOTE_ADDR}</td>
+                                </tr>
+                                <tr>
+                                    <td>localhost</td>
+                                    <td>{$Think.server.SERVER_NAME}</td>
+                                </tr>
+                                <tr>
+                                    <td>Http请求中Host值</td>
+                                    <td>{php}echo $_SERVER["HTTP_HOST"]{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器域名</td>
+                                    <td>{php}echo $_SERVER["HTTP_HOST"]{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>当前时间</td>
+                                    <td>{$Think.now}</td>
+                                </tr>
+                                <tr>
+                                    <td>tp版本号</td>
+                                    <td>{$Think.version}</td>
+                                </tr>
+                                <tr>
+                                    <td>系统类型及版本号</td>
+                                    <td>{php}echo php_uname(){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>系统类型</td>
+                                    <td>{php}echo php_uname('s'){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>系统版本号</td>
+                                    <td>{php}echo php_uname('r'){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>PHP运行方式</td>
+                                    <td>{php}echo php_sapi_name(){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>前进程用户名</td>
+                                    <td>{php}echo Get_Current_User(){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>PHP版本</td>
+                                    <td>{php}echo PHP_VERSION{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>Zend版本</td>
+                                    <td>{php}echo Zend_Version(){/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>PHP安装路径</td>
+                                    <td>{php}echo DEFAULT_INCLUDE_PATH{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>当前文件绝对路径</td>
+                                    <td>{php}echo __FILE__{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器解译引擎</td>
+                                    <td>{php}echo $_SERVER['SERVER_SOFTWARE']{/php}</td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>服务器系统目录</td>
+                                    <td>&nbsp;</td>
+                                </tr> -->
+                                <tr>
+                                    <td>服务器语言</td>
+                                    <td>{php}echo $_SERVER['HTTP_ACCEPT_LANGUAGE']{/php}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器Web端口</td>
+                                    <td>{php}echo $_SERVER['SERVER_PORT']{/php}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 环境信息 结束 ↑ -->
+
+            <!-- 统计图 开始 ↓ -->
+            <div class="tab-pane fade" id="tab_1_2">
+                <p>统计图</p>
+            </div>
+            <!-- 统计图 结束 ↑ -->
+        </div>
+
+
+    </div>
+    <!-- END PORTLET-->
+</div>
+{/block}

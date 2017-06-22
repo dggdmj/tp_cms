@@ -1,0 +1,210 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="head_css"}
+<link href="/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+{/block}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-user"></i> 用户管理 </div>
+            <div class="tools"></div>
+        </div>
+        <div class="portlet-body flip-scroll">
+
+            <div class="row">
+                <div class="col-md-12 margin-bottom-10">
+                    <a href="/manager/Index/add_user" class="btn btn-success"><i class="fa fa-plus"></i> 新增</a>
+                </div>
+            </div>
+
+            <!-- 表单部分 开始 ↓ -->
+            <form class="form-horizontal" role="form" action="/manager/Index/del_user" method="post" data-jump="0" data-modal="0" data-refresh="0" data-del-pretable="admin">
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover dt-responsive table-condensed flip-content data_table_style data_table">
+                        <thead class="flip-content">
+                            <tr class="success">
+                                <!-- <th>
+                                    <label>
+                                        <input type="checkbox" class="icheck" data-checkbox="icheckbox_flat-grey"> 全选
+                                    </label>
+                                </th> -->
+                                <th>id</th>
+                                <th>用户名</th>
+                                <th>注册时间</th>
+                                <th>注册ip</th>
+                                <th>最后登录时间</th>
+                                <th>最后登录ip</th>
+                                <th>更新时间</th>
+                                <th>登录后访问的地址</th>
+                                <th>用户状态</th>
+                                <th>隶属于用户组</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="user_list" id="vo"}
+                                <tr data-row-id="{$vo.uid}">
+                                    <!-- <td><input type="checkbox" class="icheck" data-checkbox="icheckbox_flat-grey"></td> -->
+                                    <td>{$vo.uid}</td>
+                                    <td data-userId-list="{$vo.uid}">{$vo.username}</td>
+                                    <td>{$vo.reg_time|date="Y-m-d H:i:s",###}</td>
+                                    <td><a href="http://{$vo.reg_ip}" target="_blank">{$vo.reg_ip}</a></td>
+                                    <td>{$vo.last_login_time|date="Y-m-d H:i:s",###}</td>
+                                    <td><a href="http://{$vo.last_login_ip}" target="_blank">{$vo.last_login_ip}</a></td>
+                                    <td>{$vo.update_time|date="Y-m-d H:i:s",###}</td>
+                                    <td><a href="{$vo.visit_url}" target="_blank">{$vo.visit_url}</a></td>
+                                    <td>
+                                        {if condition="$vo.uid==$Think.session.user_id"}
+                                            {if condition="$vo.admin_status==1"}
+                                                <span class="green">正常</span>
+                                            {else /}
+                                                <span class="red">禁用</span>
+                                            {/if}
+                                        {else /}
+                                            {if condition="$vo.admin_status==1"}
+                                                <input type="checkbox" checked class="make-switch switch_change" data-size="small" name="user_status" data-on-text="正常" data-off-text="禁用" data-action-url="/manager/Index/edit_userstatus" data-pre-table="admin" data-field="status">
+                                            {else /}
+                                                <input type="checkbox" class="make-switch switch_change" data-size="small" name="user_status" data-on-text="正常" data-off-text="禁用" data-action-url="/manager/Index/edit_userstatus" data-pre-table="admin" data-field="status">
+                                            {/if}
+                                        {/if}
+                                    </td>
+                                    <td>
+                                        {if condition="$vo.uid==$Think.session.user_id"}
+                                            {$vo.title}
+                                        {else /}
+                                            <a href="javascript:;" data-userId="{$vo.uid}" data-groupId="{$vo.group_id}" class="edit_usergroup_modal">{$vo.title}</a>
+                                        {/if}
+                                    </td>
+                                    <td>
+                                        <botton type="botton" class="btn btn-primary edit_userinfo_btn" data-toggle="modal" data-target=".edit_modal"><i class="fa fa-edit"></i> 编辑</botton>&nbsp;&nbsp;
+                                        {if condition="$vo.uid==$Think.session.user_id"}{else /}
+                                            <!-- <a href="javascript:;" class="btn btn-danger del_user_btn" data-toggle="modal" data-target=".confirm_modal"><i class="fa fa-times"></i> 删除</a> -->
+                                            <a href="javascript:;" class="btn btn-danger ajax_del"><i class="fa fa-times"></i> 删除</a>
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+
+<!-- 模态框 开始 ↓ -->
+<div class="modal fade edit_modal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">修改</h4>
+            </div>
+            <div class="modal-body">
+                
+                <!-- 表单部分 开始 ↓ -->
+                <form class="form-horizontal edit_user_form" role="form" action="/manager/Index/user" method="post">
+                    <div class="form-body">
+
+                        <input type="hidden" name="user_id" class="user_id_input">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">用户名</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control input_check modal_username" name="username" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">密码</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control input_check modal_password" autocomplete="off" name="password" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">再输一次密码</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control input_check modal_repassword" autocomplete="off" name="repassword" value="">
+                            </div>
+                        </div>
+
+                        <!-- 九宫格密码登录 开始 ↓ -->
+                        <div class="form-group" style="height:350px;">
+                            <label class="col-md-3 control-label">密码(手机绘制)</label>
+                            <div class="col-md-9 nine_box" id="nine_box">
+                                <script src="/static/assets/global/plugins/H5lock_add.min.js?v1.0" type="text/javascript"></script>
+                                <script>
+                                    new H5lock({
+                                        chooseType: 3
+                                    }).init();
+                                </script>
+                                <input type="hidden" autocomplete="off" class="nine_password" name="nine_password" />
+                            </div>
+                        </div>
+                        <!-- 九宫格密码登录 结束 ↑ -->
+
+                    </div>
+                </form>
+                <!-- 表单部分 结束 ↑ -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                <button type="button" class="btn green edit_user_btn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 结束 ↑ -->
+
+<!-- 用户组模态框 开始 ↓ -->
+<div class="modal fade edit_group_modal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">用户组修改</h4>
+            </div>
+            <div class="modal-body">
+                
+                <!-- 表单部分 开始 ↓ -->
+                <form class="form-horizontal" role="form" method="post">
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">用户组</label>
+                            <div class="col-md-9">
+                                <select class="form-control modal_user_group">
+                                    {volist name="user_group_list" id="vo"}
+                                        <option value="{$vo.id}">{$vo.title}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+                <!-- 表单部分 结束 ↑ -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">取消</button>
+                <button type="button" data-dismiss="modal" class="btn green edit_usergroup_btn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 用户组模态框 结束 ↑ -->
+{/block}
+
+{block name="bottom_plugin_script"}
+<script src="/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+{/block}

@@ -1,0 +1,62 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption font-green-soft">
+            <i class="fa fa-plus font-green-soft"></i>
+            <span class="caption-subject bold uppercase">新增用户组</span>
+        </div>
+        <div class="actions" style="float:left; display:inline; margin-left:10px;">
+            <a class="btn default" href="javascript:history.go(-1);">
+                <i class="fa fa-angle-left"></i> 返回
+            </a>
+        </div>
+    </div>
+
+    <div class="portlet-body form">
+        <form role="form" action="/manager/Index/usergroup_add" method="post" class="form-horizontal" data-jump="back" data-modal="0" data-refresh="0">
+            <div class="form-body">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户组名</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="usergroup_name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" style="padding-top:0px;">全选</label>
+                    <div class="col-md-8">
+                        <label><input type="checkbox" class="icheck select_all2" data-checkbox="icheckbox_square-grey"> </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">访问权限</label>
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <div class="icheck-list">
+                                {volist name="all_rules_list" id="vo"}
+                                    <label><input type="checkbox" name="url_rules[]" class="icheck check_li" data-checkbox="icheckbox_flat-grey" value="{$vo['id']}"> {$vo['title']} </label>
+                                {/volist}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-actions text-center">
+                <button type="button" class="btn btn-lg blue submit_btn" style="min-width:120px;">确定</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:history.go(-1);" class="btn btn-lg default">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END SAMPLE FORM PORTLET-->
+{/block}

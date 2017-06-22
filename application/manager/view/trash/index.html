@@ -1,0 +1,157 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="head_css"}
+<style type="text/css">
+.checkbox-inline{margin-bottom: 8px;}
+</style>
+{/block}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+    <!-- BEGIN SAMPLE FORM PORTLET-->
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption font-green-soft">
+                <i class="fa fa-pencil-square-o font-green-soft"></i>
+                <span class="caption-subject bold uppercase">数据清理</span>
+            </div>
+            <div class="actions" style="float:left; display:inline; margin-left:10px;">
+                <a class="btn default" href="javascript:history.go(-1);">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+            <div class="actions">
+                <a class="btn default" href="javascript:history.go(-1);">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </div>
+
+        <div class="portlet-body form">
+            <!-- <form role="form" class="form-horizontal"> -->
+                <div class="form-body">
+
+                    <!-- 清理缓存 开始 ↓ -->
+                    <div class="portlet box blue">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-gift"></i> 清理缓存 
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='cache'>
+                                <div class="form-body" style="padding-top:0px;">
+
+                                    <div class="col-md-12 margin-bottom-15">
+                                        <a href="javascript:;" class="btn btn-success ajax_fun" data-ajax-url="/manager/Trash/clear_runtime" data-jump="0" data-modal-on="1" data-modal-txt="确定要清理吗？" data-modal="0" data-refresh="1" data-ajax-json="" data-modal-keyborad="">清理runtime缓存目录</a>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="setting"> 设置(setting)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="clear_runtime_wait_days"> 等待天数(clear_runtime_wait_days)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="topMenu"> 顶部菜单(topMenu)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="left_quick_menu"> 左边栏快捷菜单(left_quick_menu)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="left_menu_data"> 左边菜单(格式化后)(left_menu_data)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="leftMenu"> 左边菜单(原始数据)(leftMenu)
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="auth_group"> 用户组(auth_group)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="auth_group_access"> 用户组关联(auth_group_access)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="auth_rule"> 权限(auth_rule)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="cache_checkbox" value="auth_rule_group"> 权限组(auth_rule_group)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_cache_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理缓存 结束 ↑ -->
+
+                    <!-- 清理session 开始 ↓ -->
+                    <div class="portlet box purple">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-calendar-minus-o"></i> 清理session
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form role="form" method="post" data-type='session'>
+                                <div class="form-body" style="padding-top:0;">
+
+                                    <div class="col-md-12 margin-bottom-15">
+                                        <a href="javascript:;" class="btn btn-info ajax_fun" data-ajax-url="/manager/Trash/clear_session" data-jump="0" data-modal-on="1" data-modal-txt="确定要清理吗？" data-modal="0" data-refresh="1" data-ajax-json="" data-modal-keyborad="">清空session</a>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="checkbox-list">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="user_data"> 当前登录的用户数组(user_data)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="opType"> 操作类型(opType)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="user_name"> 当前登录的用户名(user_name)
+                                            </label>
+
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="user_group_id"> 最高管理员组权限(user_group_id)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="first_clear"> 第一次登录时清理(first_clear)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="first_visit"> 第一次登录(first_visit)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="user_id"> 当前登录用户的id(user_id)
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="session_checkbox" value="user_in_group"> 用户所在组的id集合(user_in_group)
+                                            </label>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn red clear_session_btn">确定</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- 清理session 结束 ↑ -->
+
+                </div>
+            <!-- </form> -->
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+</div>
+{/block}

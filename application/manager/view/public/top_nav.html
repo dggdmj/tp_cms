@@ -1,0 +1,93 @@
+<!-- <div class="btn-group">
+    <a href="/manager" class="btn btn-lg blue" data-close-others="true">
+        <span class="hidden-sm hidden-xs"><i class="fa fa-home"></i> 后台首页&nbsp;</span>
+        <i class="fa fa-home hidden-lg"></i>
+    </a>
+</div> -->
+
+<!-- 顶部按钮 开始 ↓ -->
+{php}$topMenu=get_cache('topMenu');{/php}    {// 获取顶部菜单数据 }
+{if condition="$topMenu"}
+    {volist name="$topMenu" id="vo"}
+        {if condition="$vo.is_show"}    {// 假如顶部菜单有对应用户组显示的话，就进行判断 }
+            {php}$topMenuShow=explode(',',trimtwo($vo['is_show']));{/php}    {// 进行用户组的显示判断 }
+                {if condition="array_intersect($topMenuShow,$Think.session.user_in_group)"}    {// 假如有匹配的权限组，就显示 }
+                    <div class="btn-group topMenu" data-topMenu="{$vo.id}">
+                        <a href="{$vo.url}" target="{if condition='$vo.blank'}_blank{else /}_self{/if}" class="btn-lg" data-close-others="true">
+                            <span class="hidden-sm hidden-xs"><i></i> {$vo.title}&nbsp;</span>
+                            <i class="hidden-lg"></i>
+                        </a>
+                    </div>
+                {else /}    {// 假如没有匹配的权限组，就隐藏 }
+                {/if}
+        {else /}    {// 默认没设置用户组就显示出来 }
+            <div class="btn-group topMenu" data-topMenu="{$vo.id}">
+                <a href="{$vo.url}" target="{if condition='$vo.blank'}_blank{else /}_self{/if}" class="btn-lg" data-close-others="true">
+                    <span class="hidden-sm hidden-xs"><i></i> {$vo.title}&nbsp;</span>
+                    <i class="hidden-lg"></i>
+                </a>
+            </div>
+        {/if}
+    {/volist}
+{/if}
+<!-- 顶部按钮 结束 ↑ -->
+
+{if condition="$Think.session.user_group_id == 1"}    {// 假如为超级管理员用户组，就显示出来控制按钮 }
+<div class="btn-group">
+    <button type="button" class="btn btn-lg green dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <span class="hidden-sm hidden-xs"><i class="fa fa-user"></i> 用户&nbsp;</span>
+        <i class="fa fa-angle-down"></i>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="/manager/Index/user">
+                <i class="fa fa-user"></i> 用户管理 </a>
+        </li>
+        <li>
+            <a href="/manager/Index/usergroup">
+                <i class="fa fa-users"></i> 用户组管理 </a>
+        </li>
+        <li>
+            <a href="/manager/Index/rule_group_list">
+                <i class="fa fa-object-group"></i> 权限组管理 </a>
+        </li>
+        <li>
+            <a href="/manager/Index/rules_list">
+                <i class="fa fa-chain"></i> 访问权限管理 </a>
+        </li>
+    </ul>
+</div>
+
+<div class="btn-group">
+    <button type="button" class="btn btn-lg grey-mint dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <span class="hidden-sm hidden-xs"><i class="fa fa-gear"></i> 设置&nbsp;</span>
+        <i class="fa fa-angle-down"></i>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>
+            <a href="/manager/Page">
+                <i class="fa fa-copy"></i> 页面生成 </a>
+        </li>
+        <li>
+            <a href="/manager/Menu/set_menu?is_show=1">
+                <i class="fa fa-bars"></i> 左侧菜单管理 </a>
+        </li>
+        <li>
+            <a href="/manager/Menu/set_menu_top">
+                <i class="fa fa-list-alt"></i> 顶部菜单管理 </a>
+        </li>
+        <li>
+            <a href="/manager/Trash">
+                <i class="fa fa-trash-o"></i> 数据清理 </a>
+        </li>
+        <li>
+            <a href="/manager/Index/adminlog">
+                <i class="fa fa-edit"></i> 管理员日志 </a>
+        </li>
+        <li>
+            <a href="/manager/Index/setting">
+                <i class="fa fa-gear"></i> 后台设置 </a>
+        </li>
+    </ul>
+</div>
+{/if}

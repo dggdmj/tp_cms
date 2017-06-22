@@ -1,0 +1,216 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="head_css"}
+{include file="../application/manager/view/public/webuploader.html" /}
+{/block}
+
+{block name="head_script"}
+<script src="/static/assets/global/plugins/ueditor_plugin/ueditor.config.js" type="text/javascript"></script>
+<script src="/static/assets/global/plugins/ueditor_plugin/editor_api.js" type="text/javascript"></script>
+
+<script src="/static/assets/global/plugins/webuploader-0.1.5/webuploader.min.js" type="text/javascript"></script>
+{/block}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+    
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-social-dribbble font-purple-soft"></i>
+                <span class="caption-subject font-blue-sharp bold uppercase">编辑</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="col-xs-12 np" style="margin-bottom:10px;">
+                <a href="javascript:history.go(-1);" class="btn default">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>&nbsp;&nbsp;
+                <a href="javascript:history.go(-1);" class="btn default" style="float:right;">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>&nbsp;&nbsp;
+            </div>
+
+            <!-- 选项卡标签部分 开始 ↓ -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab"> 编辑 </a>
+                </li>
+                <!-- <li>
+                    <a href="#tab_1_2" data-toggle="tab"> 自定义 </a>
+                </li> -->
+            </ul>
+            <!-- 选项卡标签部分 结束 ↑ -->
+
+            <!-- 表单部分 开始 ↓ -->
+            <form class="form-horizontal" role="form" action="/manager/uploadfile/data_edit" method="post" data-jump="back" data-modal="0" data-refresh="0" data-pretable="uploadfile">
+                <div class="tab-content">
+
+                    <!-- 选项卡内容区1 开始 ↓ -->
+                    <div class="tab-pane fade active in" id="tab_1_1">
+                        <div class="form-body">
+
+                            <input type="hidden" name="id" value="{$Think.get.id}">
+
+                            {volist name="datas" id="vo" key="k"}
+                                {php}
+                                    $key1=$key;
+                                {/php}
+                                {if condition="$vo.COLUMN_NAME != 'id'"}
+                                    {php}
+                                        $column_arr=explode('-',$vo['COLUMN_COMMENT']);       //拆分字段注释信息
+                                        //dump($vo['COLUMN_COMMENT']);
+                                        //dump($column_arr);
+                                        $field_name=$column_arr[0];    //字段名称
+                                        $type_style=$column_arr[1];    //所展示的表单风格
+                                        if(!empty($column_arr[3])){
+                                            $type_format=$column_arr[3];    //所展示的表单类型
+                                        }
+
+                                        if(!empty($column_arr[4])){
+                                            $type_data_format=$column_arr[4];    //格式分隔值
+                                            $type_select_val=explode(';',$type_data_format); //下拉框的文字展示值
+                                        }
+
+                                        if(!empty($column_arr[5])){
+                                            $type_select=$column_arr[5];    //下拉框
+                                            $type_select_option=explode(';',$type_select); //下拉框的文字展示值
+                                        }
+
+                                        $data_now_time=time();  //当前服务器时间戳
+                                        $data_now_date=date('Y-m-d H:i:s',$data_now_time);  //当前服务器时间
+                                    {/php}
+
+                                    {switch name="type_style"}
+                                        {case value="text"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="{$vo.COLUMN_NAME}" value='{volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{$vo2}{else /}{$vo.COLUMN_DEFAULT}{/if}{/volist}'>
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="toggle"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9 toggle_btn_event">
+                                                    <a href="javascript:;" class="btn blue toggle_btn">是</a>
+                                                    <input type="hidden" class="toggle_btn_input" data-on-text="{if condition='!empty($type_on)'}{$type_on}{else /}是{/if}" data-off-text="{if condition='!empty($type_off)'}{$type_off}{else /}否{/if}" data-on-val="1" data-off-val="0" name="{$vo.COLUMN_NAME}" value='{volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{$vo2}{/if}{/volist}'>
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="textarea"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control" rows="3" name="{$vo.COLUMN_NAME}">{volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{$vo2}{else /}{$vo.COLUMN_DEFAULT}{/if}{/volist}</textarea>
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="select"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9">
+                                                    <select class="form-control" name="{$vo.COLUMN_NAME}">
+                                                        {volist name="type_select_val" id="voption"}
+                                                            {php}
+                                                                $key_select=$key;
+                                                            {/php}
+                                                            <option value="{$voption}" {volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{if condition="$voption==$vo2"}selected='selected'{/if}{/if}{/volist}>{$type_select_option[$key_select]}</option>
+                                                        {/volist}
+                                                    </select>
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="edit"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9">
+                                                    <script id="bind_ue{$key1}" type="text/plain" style="width:100%;height:500px;" name="{$vo.COLUMN_NAME}" value="">{volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{$vo2}{else /}{$vo.COLUMN_DEFAULT}{/if}{/volist}</script>
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="upload"}
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{$field_name}</label>
+                                                <div class="col-md-9">
+                                                    <!--dom结构部分-->
+                                                    <div class="uploader-demo">
+                                                        <!--用来存放item-->
+                                                        <div class="filePicker">选择图片</div>
+                                                        <div class="fileList" class="uploader-list"></div>
+                                                        <input type="hidden" class="form-control webuploader_input" name="{$vo.COLUMN_NAME}" value='{volist name="edit_data" id="vo2" key="k2"}{if condition="$key==$vo.COLUMN_NAME"}{$vo2}{else /}{$vo.COLUMN_DEFAULT}{/if}{/volist}'>
+                                                    </div>
+
+                                                    <!-- 上传进度条 开始 -->
+                                                    <!-- <div class="progress">
+                                                      <div class="progress-bar progress-bar-info"></div>
+                                                    </div>
+                                                    <div class="progress_txt"></div> -->
+                                                    <!-- 上传进度条 结束 -->
+                                                    {if condition="$vo.COLUMN_NAME"}<span class="help-block"> 字段（{$vo.COLUMN_NAME}） </span>{/if}
+                                                </div>
+                                            </div>
+                                        {/case}
+
+                                        {case value="hide"}
+                                            {if condition="!empty($type_format)"}
+                                                {if condition="$type_format=='timestamp'"}  {// 假如是时间戳类型}
+                                                    <input type="hidden" class="form-control" name="{$vo.COLUMN_NAME}" value="{$data_now_time}">
+                                                {elseif condition="$type_format=='datetime'"/}
+                                                    <input type="hidden" class="form-control" name="{$vo.COLUMN_NAME}" value="{$data_now_date}">
+                                                {else /}
+                                                    <input type="hidden" class="form-control" name="{$vo.COLUMN_NAME}" value="{$vo.COLUMN_DEFAULT}">
+                                                {/if}
+                                            {/if}
+                                        {/case}
+                                        {default /}
+                                    {/switch}
+                                {/if}
+                            {/volist}
+                        </div>
+                    </div>
+                    <!-- 选项卡内容区1 结束 ↑ -->
+                
+                    <!-- 选项卡内容区2 开始 ↓ -->
+                    <!--<div class="tab-pane fade" id="tab_1_2">
+                        
+                        
+
+                    </div>-->
+                    <!-- 选项卡内容区2 结束 ↑ -->
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="button" class="btn btn-lg green col-md-3 submit_btn2">提交</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- 表单部分 结束 ↑ -->
+            
+        </div>
+    </div>
+
+</div>
+{/block}
+
+{block name="bottom_plugin_script"}
+<!-- 上传插件 -->
+<!-- <script src="/static/assets/global/plugins/jquery.iframe-transport.js"></script>
+<script src="/static/assets/global/plugins/jquery.fileupload.js"></script> -->
+{/block}

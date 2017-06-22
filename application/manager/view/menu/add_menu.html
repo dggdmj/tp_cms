@@ -1,0 +1,126 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption font-green-soft">
+            <i class="fa fa-plus font-green-soft"></i>
+            <span class="caption-subject bold uppercase">新增、编辑菜单</span>
+        </div>
+        <div class="actions" style="float:left; display:inline; margin-left:10px;">
+            <a class="btn default" href="javascript:history.go(-1);">
+                <i class="fa fa-angle-left"></i> 返回
+            </a>
+        </div>
+    </div>
+
+    <div class="portlet-body form">
+        <form role="form" action="/manager/Menu/add_menu" method="post" class="form-horizontal" data-jump="back" data-modal="0" data-refresh="0">
+            <div class="form-body">
+
+                <input type="hidden" name="id" value="{$Think.get.id}">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">菜单名称</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="title" value="{if condition='!empty($data)'}{$data['title']}{/if}">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">链接url</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="url" value="{if condition='!empty($data)'}{$data['url']}{/if}">
+                        <span class="help-block">（例如：/manager/Index/user）</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">权限</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="type">
+                            <option value="null">无</option>
+                            {php}
+                                $rule_group=get_cache('auth_rule_group');   //获取缓存里的权限组
+                            {/php}
+                            {volist name="rule_group" id="vo"}
+                                {if condition="$vo.id != $Think.config.RULE_GROUP_ID"}
+                                    <option value="{$vo.id}" {if condition='!empty($data) and $data.type==$vo.id'}selected="selected"{/if}>{$vo.title}</option>
+                                {/if}
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">是否显示</label>
+                    <div class="col-md-8 toggle_btn_event">
+                        <a href="javascript:;" class="btn blue toggle_btn">是</a>
+                        <input type="hidden" class="toggle_btn_input" data-on-text="是" data-off-text="否" data-on-val="1" data-off-val="0" name="is_show" value="{if condition='!empty($data)'}{$data['is_show']}{else /}1{/if}">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">隶属于</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="level">
+                            <option value="one">顶级菜单</option>
+                            {php}
+                                $all_menu=filter_leftMenu();   //获取过滤了的菜单数据
+                            {/php}
+                            {volist name="all_menu" id="vo"}
+                                {if condition="!empty($data) and $data.id!=$vo.id"}
+                                    <option value="{$vo.id}" data-test="{$vo.id}" {if condition='!empty($data) and query_leftMenu_parent($data.id)["id"]==$vo.id'}selected="selected"{/if}>{$vo.title}</option>
+                                {elseif condition="empty($data)"/}
+                                    <option value="{$vo.id}" {if condition='!empty($data) and query_leftMenu_parent($data.id)["id"]==$vo.id'}selected="selected"{/if}>{$vo.title}</option>
+                                {/if}
+                            {/volist}
+                        </select>
+                        <span class="help-block">(注意：菜单最多为3层级)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">新窗口打开</label>
+                    <div class="col-md-8 toggle_btn_event">
+                        <a href="javascript:;" class="btn blue toggle_btn">是</a>
+                        <input type="hidden" class="toggle_btn_input" data-on-text="是" data-off-text="否" data-on-val="1" data-off-val="0" name="blank" value="{if condition='!empty($data)'}{$data['blank']}{else /}0{/if}">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">设为快捷菜单</label>
+                    <div class="col-md-8 toggle_btn_event">
+                        <a href="javascript:;" class="btn blue toggle_btn">是</a>
+                        <input type="hidden" class="toggle_btn_input" data-on-text="是" data-off-text="否" data-on-val="1" data-off-val="0" name="quick" value="{if condition='!empty($data)'}{$data['quick']}{else /}0{/if}">
+                        <span class="help-block">(会添加到“常用功能”菜单下)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">排序</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="weight" value="{if condition='!empty($data)'}{$data['weight']}{/if}">
+                        <span class="help-block">(越小越靠前)</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-actions text-center">
+                <button type="button" class="btn btn-lg blue submit_btn" style="min-width:120px;">确定</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:history.go(-1);" class="btn btn-lg default">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END SAMPLE FORM PORTLET-->
+</div>
+{/block}

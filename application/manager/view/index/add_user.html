@@ -1,0 +1,89 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="portlet light bordered">
+    <div class="portlet-title">
+        <div class="caption font-green-soft">
+            <i class="fa fa-plus font-green-soft"></i>
+            <span class="caption-subject bold uppercase">添加用户</span>
+        </div>
+        <div class="actions" style="float:left; display:inline; margin-left:10px;">
+            <a class="btn default" href="javascript:history.go(-1);">
+                <i class="fa fa-angle-left"></i> 返回
+            </a>
+        </div>
+    </div>
+
+    <div class="portlet-body form">
+        <form role="form" action="/manager/Index/add_user" method="post" class="form-horizontal add_user_form">
+            <div class="form-body">
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">用户名</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">密码</label>
+                    <div class="col-md-8">
+                        <input type="password" class="form-control add_user_password" name="password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">再次输入密码</label>
+                    <div class="col-md-8">
+                        <input type="password" class="form-control" name="repassword">
+                    </div>
+                </div>
+
+                <!-- 九宫格密码登录 开始 ↓ -->
+                <div class="form-group" style="height:350px;">
+                    <label class="col-md-2 control-label">九宫格密码(手机绘制)：</label>
+                    <div class="col-md-8 nine_box" id="nine_box">
+                        <script src="/static/assets/global/plugins/H5lock_add.min.js?v1.0" type="text/javascript"></script>
+                        <script>
+                            new H5lock({
+                                chooseType: 3
+                            }).init();
+                        </script>
+                        <input type="hidden" autocomplete="off" class="nine_password" name="nine_password" />
+                    </div>
+                </div>
+                <!-- 九宫格密码登录 结束 ↑ -->
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">隶属于用户组</label>
+                    <div class="col-md-8">
+                        <select class="form-control" name="usergroup">
+                            {volist name="user_groups" id="vo"}
+                                {if condition="$vo.id != 1"}
+                                    <option value="{$vo.id}">{$vo.title}</option>
+                                {/if}
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-actions text-center">
+                <button type="submit" class="btn btn-lg blue" style="min-width:120px;">确定</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:history.go(-1);" class="btn btn-lg default">
+                    <i class="fa fa-angle-left"></i> 返回
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END SAMPLE FORM PORTLET-->
+</div>
+{/block}
+
+{block name="bottom_plugin_script"}
+<script src="/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+{/block}

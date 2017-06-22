@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh-CN" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh-CN" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-CN">
+<!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>后台管理系统</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta http-equiv="X-UA-Compatible" content="IE=12,chrome=1">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="author" content="YS">
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="/static/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN PAGE LEVEL STYLES -->
+        <link href="/static/assets/pages/css/login-4.min.css?v1.0" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <!-- END THEME LAYOUT STYLES -->
+        <script src="/static/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        
+        <script type="text/javascript">
+        var allow_verify={$setting['login_allow_verify']};  //是否允许出现验证码
+        var allow_login_error={$setting['login_error_times']};  //允许限制登录失败的次数
+        var login_error_times={$setting['error_times_num']};  //登录失败的次数
+        var error_wait_time={$setting['error_wait_time']}; //登录失败达到一定次数后，禁止登录的时间间隔
+        var record_login_username={$setting['record_login_username']};  //是否自动填入登录用户名
+        var nine_login={$setting['nine_login']};  //是否启用手机版九宫格登录
+
+        var window_width=$(window).width();
+        var window_height=$(window).height();
+        $(window).resize(function(event) {
+            window_width=$(window).width();
+            window_height=$(window).height();
+        });
+        </script>
+    </head>
+    <!-- END HEAD -->
+
+    <body class=" login">
+        <div class="login_top_divide login_top_divide_event"></div>
+        <!-- BEGIN LOGIN -->
+        <div class="content content_event">
+            <!-- BEGIN LOGIN FORM -->
+            <form class="login-form login_form" action="/manager/Login/check_login" method="post">
+                <h3 class="form-title">
+                    <span>后</span>
+                    <span>台</span>
+                    <span>管</span>
+                    <span>理</span>
+                    <span>系</span>
+                    <span>统</span>
+                </h3>
+
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button>
+                    <span> 请正确填写 </span>
+                </div>
+
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label visible-ie8 visible-ie9">用户名</label>
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        <input class="form-control input-lg placeholder-no-fix" type="text" autocomplete="off" placeholder="用户名" id="username" name="username" /> </div>
+                </div>
+
+                <div class="form-group password_group">
+                    <label class="control-label visible-ie8 visible-ie9">密码</label>
+                    <div class="input-icon">
+                        <i class="fa fa-lock"></i>
+                        <input class="form-control input-lg placeholder-no-fix" type="password" autocomplete="off" placeholder="密码" id="password" name="password" /> </div>
+                </div>
+                <script type="text/javascript">
+                if(document.getElementById("username").value){
+                    document.getElementById("password").focus();
+                }else{
+                    document.getElementById("username").focus();
+                }
+                </script>
+
+                {if condition="$setting['login_allow_verify'] == 1"}
+                    <div class="form-group verifyimg_group">
+                      <label class="control-label visible-ie8 visible-ie9">验证码</label>
+                      <div class="input-icon">
+                        <i class="fa fa-desktop"></i>
+                        <input class="form-control placeholder-no-fix input-lg verify_input" type="text" autocomplete="off" placeholder="验证码" name="verify"/>
+                      </div>
+                    </div>
+
+                    <div class="form-group verifyimg_img">
+                        <img class="img-responsive verifyimg verifyimg_event" alt="点击切换" title="点击切换" src="{:captcha_src()}">
+                    </div>
+                {/if}
+
+                {if condition="$setting['nine_login'] == 1"}
+                    <div class="form-group" style="margin-bottom:5px;">
+                        <a href="javascript:;" class="btn btn-default btn-xs visible-xs nine_btn">使用九宫格方式登录</a>
+                        <div class="clearfix"></div>
+                    </div>
+                {/if}
+
+                {if condition="$setting['nine_login'] == 1"}
+                    <!-- 九宫格密码登录 开始 ↓ -->
+                    <div class="form-group visible-xs nine_box" id="nine_box">
+                        <script src="/static/assets/global/plugins/H5lock.min.js?v1.0" type="text/javascript"></script>
+                        <script>
+                            new H5lock({
+                                chooseType: 3
+                            }).init();
+                        </script>
+                        <input type="hidden" autocomplete="off" class="nine_password" name="nine_password" />
+                    </div>
+                    <!-- 九宫格密码登录 结束 ↑ -->
+                {/if}
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-block btn-lg green pull-right login_btn"> 登录 </button>
+                </div>
+            </form>
+            <!-- END LOGIN FORM -->
+            <div class="clearfix"></div>
+        </div>
+        <!-- END LOGIN -->
+
+        <!-- 提示的模态框 开始 ↓ -->
+        <div class="modal fade alert_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">温馨提示</h4>
+              </div>
+              <div class="modal-body">
+                 提示！
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default close_modal" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;关闭</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- 提示的模态框 结束 ↑ -->
+
+        <!--[if lt IE 9]>
+        <script src="/static/assets/global/plugins/respond.min.js"></script>
+        <script src="/static/assets/global/plugins/excanvas.min.js"></script>
+        <![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="/static/assets/pages/scripts/login-4.min.js?v1.0" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <!-- END THEME LAYOUT SCRIPTS -->
+    </body>
+</html>

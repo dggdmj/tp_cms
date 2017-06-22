@@ -1,0 +1,57 @@
+<script type="text/javascript">
+var request_path='/{$Request.path}';     //当前页面的请求地址
+</script>
+<li class="nav-item open active">
+    <a href="javascript:;" class="nav-link">
+        <i class="icon-home"></i>
+        <span class="title">常用功能</span>
+        <span class="arrow open"></span>
+    </a>
+
+    <ul class="sub-menu left_nav_quick">
+        {php}$left_quick_menu=get_cache('left_quick_menu');{/php}
+        {volist name="left_quick_menu" id="vo"}
+            <li class="nav-item left_nav_item" data-left-menu-id="{$vo['id']}" data-left-menu-url="{$vo['url']}">
+                <a href="{$vo['url']}" target="{if condition='$vo.blank'}_blank{else /}_self{/if}" class="nav-link ">
+                    <i class="left_menu_icon"></i>
+                    <span class="title">{$vo['title']}</span>
+                    <!-- <span class="badge badge-success">1</span> -->
+                </a>
+            </li>
+        {/volist}
+    </ul>
+</li>
+
+<!-- 菜单循环开始 ↓ -->
+{php}$left_menu_list=get_cache('left_menu_data');{/php}
+{volist name="left_menu_list" id="vo"}
+    <li class="nav-item left_nav_item" data-left-menu-id="{$key}" data-left-menu-url="{$vo['url_str']}">
+        <a href="{$vo['url']}" target="{if condition='$vo.blank'}_blank{else /}_self{/if}" class="nav-link">
+            <i class="left_menu_icon"></i>
+            <span class="title">{$vo['title']}</span>
+            {if condition="!empty($vo.two)"}<span class="arrow left_menu_arrow"></span>{/if}
+        </a>
+
+        {if condition="!empty($vo.two)"}<ul class="sub-menu">{/if}
+            {volist name="vo.two" id="vo2"}
+                <li class="nav-item left_nav_item" data-left-menu-id="{$key}" data-left-menu-url="{$vo2['url_str']}">
+                    <a href="{$vo2['url']}" target="{if condition='$vo2.blank'}_blank{else /}_self{/if}" class="nav-link">
+                            <span class="left_menu_icon"></span> {$vo2['title']}
+                            {if condition="!empty($vo2.three)"}<span class="arrow left_menu_arrow"></span>{/if}
+                    </a>
+
+                    {if condition="!empty($vo2.three)"}<ul class="sub-menu">{/if}
+                        {volist name="vo2.three" id="vo3"}
+                            <li class="nav-item left_nav_item" data-left-menu-id="{$key}" data-left-menu-url="{$vo3['url_str']}">
+                                <a href="{$vo3['url']}" target="{if condition='$vo3.blank'}_blank{else /}_self{/if}" class="nav-link">
+                                    <span class="left_menu_icon"></span> {$vo3['title']}
+                                </a>
+                            </li>
+                        {/volist}
+                    {if condition="!empty($vo2.three)"}</ul>{/if}
+                </li>
+            {/volist}
+        {if condition="!empty($vo.two)"}</ul>{/if}
+    </li>
+{/volist}
+<!-- 菜单循环 结束 ↑ -->

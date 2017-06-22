@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh-CN" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="zh-CN" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-CN">
+    <!--<![endif]-->
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8" />
+        <title>后台管理系统</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta http-equiv="X-UA-Compatible" content="IE=12,chrome=1">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="author" content="YS">
+        <!-- BEGIN PAGE FIRST SCRIPTS -->
+        <script src="/static/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
+        <!-- END PAGE FIRST SCRIPTS -->
+        <!-- BEGIN PAGE TOP STYLES -->
+        <link href="/static/assets/global/plugins/pace/themes/pace-theme-flash.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE TOP STYLES -->
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="/static/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+        <!-- END GLOBAL MANDATORY STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!-- <link href="/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" /> -->
+        <link href="/static/assets/global/plugins/jquery-notific8/jquery.notific8.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <!-- <link href="/static/assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" type="text/css" /> -->
+        <!-- <link href="/static/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /> -->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL STYLES -->
+        <link href="/static/assets/global/css/components-rounded.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <link href="/static/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME GLOBAL STYLES -->
+        <!-- BEGIN THEME LAYOUT STYLES -->
+        <link href="/static/assets/layouts/layout4/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="/static/assets/layouts/layout4/css/themes/light.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="/static/public/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="/static/manager/css/custom.css" rel="stylesheet" type="text/css" />
+        <!-- END THEME LAYOUT STYLES -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        {block name="head_css"}{/block}
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!--[if lt IE 9]>
+        <script src="/static/assets/global/plugins/respond.min.js"></script>
+        <script src="/static/assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+        <!-- BEGIN CORE PLUGINS -->
+        <script src="/static/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        var window_width=$(window).width();
+        var window_height=$(window).height();
+        $(window).resize(function(event) {
+            window_width=$(window).width();
+            window_height=$(window).height();
+        });
+
+        //获取get参数
+        var GetQueryString=function(name){  //参数（参数名）
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+        }
+
+        //手机设备标识
+        var phone_type=1;   //1代表平果手机，0代表安卓手机
+        //判断手机设备类型
+        function check_phone_type(){
+            var u = navigator.userAgent;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+                //安卓手机
+                //alert("安卓手机");
+                phone_type=0;
+            } else if (u.indexOf('iPhone') > -1){
+                //苹果手机
+                //alert("苹果手机");
+                phone_type=1;
+            } else if (u.indexOf('Windows Phone') > -1) {
+                //winphone手机
+                //alert("winphone手机");
+            }
+        }
+        check_phone_type();
+
+        var ue_obj=new Array(); //ue编辑器对象数组
+        </script>
+
+        {block name="head_script"}{/block}
+    </head>
+    <!-- END HEAD -->
+
+    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-sidebar-fixed">
+        <!-- BEGIN HEADER -->
+        <div class="page-header navbar navbar-fixed-top">
+            <!-- BEGIN HEADER INNER -->
+            <div class="page-header-inner ">
+                <!-- BEGIN LOGO -->
+                <div class="page-logo">
+                    <a href="/manager">
+                        <img src="/static/assets/layouts/layout4/img/logo-light.png" alt="logo" class="logo-default" />
+                    </a>
+                    <div class="menu-toggler sidebar-toggler">
+                        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                    </div>
+                </div>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN PAGE ACTIONS -->
+                <!-- DOC: Remove "hide" class to enable the page header actions -->
+                <div class="page-actions page_actions">
+                    {include file="../application/manager/view/public/top_nav.html" /}
+                </div>
+                <!-- END PAGE ACTIONS -->
+                <!-- BEGIN PAGE TOP -->
+                <div class="page-top">
+                    <!-- BEGIN HEADER SEARCH BOX -->
+                    <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+                    <!-- <form class="search-form" action="page_general_search_2.html" method="GET">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" placeholder="Search..." name="query">
+                            <span class="input-group-btn">
+                                <a href="javascript:;" class="btn submit">
+                                    <i class="icon-magnifier"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </form> -->
+                    <!-- END HEADER SEARCH BOX -->
+                    <!-- BEGIN TOP NAVIGATION MENU -->
+                    <div class="top-menu">
+                        <ul class="nav navbar-nav pull-right">
+                            
+                            <!-- BEGIN USER LOGIN DROPDOWN -->
+                            <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                            <li class="dropdown dropdown-user dropdown-dark">
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                    <span class="username username-hide-on-mobile">{$Think.session.user_name}</span>
+                                    <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
+                                    <img alt="" class="img-circle" src="/static/assets/layouts/layout4/img/avatar.png" />
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-default">
+                                    <li>
+                                        <a href="/" target="_blank">
+                                            <i class="icon-home"></i> 返回前台首页
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/manager/Login/login_out">
+                                            <i class="icon-key"></i> 注销
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- END USER LOGIN DROPDOWN -->
+
+                        </ul>
+                    </div>
+                    <!-- END TOP NAVIGATION MENU -->
+                </div>
+
+                <!-- <div class="inline_count">在线人数：<b class="inline_count_num">{$Think.session.inline_num|default="0"}</b> 人</div> -->
+                <!-- END PAGE TOP -->
+            </div>
+            <!-- END HEADER INNER -->
+        </div>
+        <!-- END HEADER -->
+        <!-- BEGIN HEADER & CONTENT DIVIDER -->
+        <div class="clearfix"> </div>
+        <!-- END HEADER & CONTENT DIVIDER -->
+        <!-- BEGIN CONTAINER -->
+        <div class="page-container">
+            <!-- BEGIN SIDEBAR -->
+            <div class="page-sidebar-wrapper">
+                <!-- BEGIN SIDEBAR -->
+                <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                <div class="page-sidebar navbar-collapse collapse">
+                    <!-- BEGIN SIDEBAR MENU -->
+                    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+                    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+                    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+                    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+                    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+                    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+                    <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="false" data-slide-speed="200">
+                      {block name="left_menu"}
+                        {include file="../application/manager/view/public/left_menu.html" /}
+                      {/block}
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
+                <!-- END SIDEBAR -->
+            </div>
+            <!-- END SIDEBAR -->
+            <!-- BEGIN CONTENT -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN CONTENT BODY -->
+                <div class="page-content">
+                    <!-- BEGIN PAGE HEAD-->
+                    <div class="page-head">
+                        <!-- BEGIN PAGE TITLE -->
+
+                        <!-- END PAGE TITLE -->
+                    </div>
+                    <!-- END PAGE HEAD-->
+                    <!-- BEGIN PAGE BASE CONTENT -->
+                    
+                    <div class="row" style="margin-left: -25px;">
+                        <!-- 公用提示框 开始 ↓ -->
+                        <div class="col-md-12 col-sm-12 note_top note_top_event"></div>
+                        <!-- 公用提示框 结束 ↑ -->
+                        {block name="body"}
+                        <div class="col-md-12 col-sm-12">
+                            <!-- BEGIN PORTLET-->
+                            <div class="portlet light bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-bar-chart font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">内容区</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="site_statistics_loading">
+                                        <img src="/static/assets/global/img/loading.gif" alt="loading" /> </div>
+                                    <div id="site_statistics_content" class="display-none">
+                                        <div id="site_statistics" class="chart"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END PORTLET-->
+                        </div>
+                        {/block}
+                    </div>                    
+                    
+                    <!-- END PAGE BASE CONTENT -->
+                </div>
+                <!-- END CONTENT BODY -->
+            </div>
+            <!-- END CONTENT -->
+        </div>
+        <!-- END CONTAINER -->
+        <!-- BEGIN FOOTER -->
+        <div class="page-footer">
+            <div class="scroll-to-top">
+                <i class="icon-arrow-up"></i>
+            </div>
+        </div>
+        <!-- END FOOTER -->
+
+        <!-- 工具标签 开始 ↓ -->
+        {include file="../application/manager/view/public/tools.html" /}
+        <!-- 工具标签 结束 ↑ -->
+
+        {block name="bottom_script"}{/block}
+        
+        <script src="/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- <script src="/static/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script> -->
+        <script src="/static/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <!--<script src="/static/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>-->
+        <!--<script src="/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>-->
+        <script src="/static/assets/global/plugins/jquery-notific8/jquery.notific8.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/icheck/icheck.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+        {block name="bottom_plugin_script"}{/block}
+        <!--<script src="/static/assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>-->
+        <!--<script src="/static/assets/global/scripts/datatable.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+        <script src="/static/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>-->
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="/static/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="/static/assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+        <!-- END THEME LAYOUT SCRIPTS -->
+        <script src="/static/public/js/public.js" type="text/javascript"></script>
+        <script src="/static/manager/js/custom.js" type="text/javascript"></script>
+
+        {block name="footer_script"}{/block}
+    </body>
+
+</html>

@@ -1,0 +1,54 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+<!-- BEGIN EXAMPLE TABLE PORTLET-->
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-object-group"></i> 权限组管理 </div>
+            <div class="tools"></div>
+        </div>
+        <div class="portlet-body flip-scroll">
+
+            <div class="row">
+                <div class="col-md-12 margin-bottom-10">
+                    <a href="/manager/Index/rule_group_add_edit" class="btn btn-success"><i class="fa fa-plus"></i> 新增</a>
+                </div>
+            </div>
+
+            <!-- 表单部分 开始 ↓ -->
+            <form class="form-horizontal" role="form" action="/manager/Index/del_rule_group" method="post" data-jump="0" data-modal="0" data-refresh="0" data-del-pretable="auth_group_access">
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover dt-responsive table-condensed flip-content data_table_style data_table">
+                        <thead class="flip-content">
+                            <tr class="success">
+                                <th>id</th>
+                                <th>组名</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="rule_group_list" id="vo"}
+                                <tr data-row-id="{$vo.id}">
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.title}</td>
+                                    <td>
+                                        {if condition="$vo.id!=$Think.config.RULE_GROUP_ID and $vo.id!=$Think.config.DEFAULT_RULE_GROUP_ID"}
+                                            <a href="/manager/Index/rule_group_add_edit?id={$vo.id}" class="btn btn-primary"><i class="fa fa-edit"></i> 编辑</a>
+                                            <a href="javascript:;" class="btn btn-danger ajax_del"><i class="fa fa-times"></i> 删除</a>
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <!-- 表单部分 结束 ↑ -->
+
+        </div>
+    </div>
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+{/block}

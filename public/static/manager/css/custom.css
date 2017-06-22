@@ -1,0 +1,43 @@
+/* here you can put your own css to customize and override the theme */
+/*调整后台间距*/
+html{overflow-x: hidden;}
+.page-container{padding: 20px 10px 0;}
+.page-header-fixed .page-container{margin-top:65px;}
+@media (min-width: 992px){
+    .page-sidebar-fixed .page-sidebar {top: 85px;}
+}
+
+.page-header.navbar .page-logo .logo-default{margin: 0; width: 80%;}
+
+.jquery-notific8-notification{max-height: none;min-height:4.125em; height: auto;}
+.jquery-notific8-message{word-break:break-all}
+/*调整switch文字间距 */
+.switch .bootstrap-switch{width:62px !important;}
+.switch .bootstrap-switch-handle-on{width:30px !important;}
+
+.note_top{display: none;}
+
+.manager_button_list{background-color:transparent !important;}
+.manager_button_list td{border: none !important; padding: 4px 0 !important;}
+
+.portlet.box>.portlet-body{padding: 10px !important;}
+
+.icheck-inline>label{cursor: pointer;}
+
+form.manage_list_top_search label.control-label{padding: 6px 0px; text-align: right;}
+
+.member_search_input{width:120px !important;}
+
+/* = 分页
+------------------------------------------ */
+.table_pages{*zoom:1;}
+.table_pages:before,.table_pages:after{display:table;content:"";}
+.table_pages:after{clear:both;}
+.table_pages a,.table_pages span{float:left;margin-left:-1px;padding: 0 14px;height:34px;line-height:34px;color:#333;margin-right:10px;background-color: #ddd;}
+.table_pages a:hover{text-decoration:none;background-color:#1caf04;color: #fff}
+.table_pages .current{background-color:#1caf04;color:#fff}
+.table_pages .next, .table_pages .prev{font-weight: bold;}
+.table_pages .rows{border-right: 1px solid #CCCCCC;}
+
+/*在线人数*/
+.inline_count{float: right; margin-top: 30px;}

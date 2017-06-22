@@ -1,0 +1,58 @@
+{extend name="../application/manager/view/public/base.html" /}
+
+{block name="head_script"}
+{/block}
+
+{block name="body"}
+<div class="col-md-12 col-sm-12">
+    
+    <div class="portlet light bordered">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-social-dribbble font-purple-soft"></i>
+                <span class="caption-subject font-purple-soft bold uppercase">页面生成</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <!-- 表单部分 开始 ↓ -->
+            <form class="form-horizontal" role="form" action="/manager/Page/start_page" method="post" data-jump="0" data-modal="0" data-refresh="0">
+                <div class="tab-content">
+
+                    <div class="form-body">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">文件名称(字母小写)</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="create_name" placeholder="例如：goods">
+                                <span class="help-block">(统一的一套文件、控制器、模板、权限生成)(注意：全部小写)</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">权限名称</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="rule_name" placeholder="例如：商品">
+                                <span class="help-block">(默认添加的权限)</span>
+                            </div>
+                        </div>
+                                    
+                    </div>
+
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="button" class="btn btn-lg green col-md-3 submit_btn">提交</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- 表单部分 结束 ↑ -->
+            
+        </div>
+    </div>
+
+</div>
+{/block}
