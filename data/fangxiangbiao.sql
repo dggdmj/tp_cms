@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
+Source Server         : localhost_3306
+Source Server Version : 50519
 Source Host           : localhost:3306
-Source Database       : ys_system
+Source Database       : fangxiangbiao
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50519
 File Encoding         : 65001
 
-Date: 2017-06-07 12:03:52
+Date: 2017-06-23 17:54:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,15 +36,14 @@ CREATE TABLE `ys_admin` (
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '用户状态(1：为正常，0：为停止使用)',
   `type` int(11) NOT NULL DEFAULT '0' COMMENT '级别标识',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
-  FULLTEXT KEY `visit_url` (`visit_url`)
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='后台管理员表';
 
 -- ----------------------------
 -- Records of ys_admin
 -- ----------------------------
 INSERT INTO `ys_admin` VALUES ('1', 'president', 'MDAwMDAwMDAwMJp_rtHJa5ycwIxqkYp9vGOEoYmWhaB0cQ', 'MDAwMDAwMDAwMIWhtd61fXWos4l-2Yh9qGODi4Gh', null, null, null, '1495295984', '2017-05-20 23:59:44', '127.0.0.1', null, null, 'http://ys.com/manager', '1', '1');
-INSERT INTO `ys_admin` VALUES ('2', 'master', 'MDAwMDAwMDAwMJmOqt_KgIaqt3mclYh6oG4', 'MDAwMDAwMDAwMIShqdy0o3Vj', null, null, null, '1496797501', '2017-06-07 09:05:01', '127.0.0.1', null, null, 'http://ys.com/manager', '1', '0');
+INSERT INTO `ys_admin` VALUES ('2', 'master', 'MDAwMDAwMDAwMJmOqt_KgIaqt3mclYh6oG4', 'MDAwMDAwMDAwMJmOqt_KgIaqt3l62oaztGKEoZeYhnp0cQ', null, null, null, '1498183173', '2017-06-23 09:59:33', '127.0.0.1', null, null, null, '1', '0');
 INSERT INTO `ys_admin` VALUES ('3', 'admin', 'MDAwMDAwMDAwMJCOttnHkGVys4l-2w', null, null, null, null, '1495392337', '2017-05-22 02:45:37', '127.0.0.1', '1494904951', '2017-05-16 11:22:31', 'http://ys.com/manager', '1', '0');
 
 -- ----------------------------
@@ -103,7 +102,7 @@ CREATE TABLE `ys_article` (
 -- Records of ys_article
 -- ----------------------------
 INSERT INTO `ys_article` VALUES ('16', '', '', '<p>fghdfgh</p>', '1495523989', '2017-05-23 15:19:49', null, null, '0', '0', '0', '1', '0', '', '', null);
-INSERT INTO `ys_article` VALUES ('17', '阿斯顿发斯蒂芬', '', '<p><img src=\"/ueditor/php/upload/image/20170607/1496807295908357.gif\" title=\"1496807295908357.gif\" alt=\"92e8647aly1fdne2bh93yg20dw07t7wh (1).gif\"/></p>', '1496807280', '2017-06-07 11:48:00', null, null, '0', '0', '127', '1', '0', '', '14,19', null);
+INSERT INTO `ys_article` VALUES ('17', '阿斯顿发斯蒂芬', '', '<p><img src=\"/ueditor/php/upload/image/20170607/1496807295908357.gif\" title=\"1496807295908357.gif\" alt=\"92e8647aly1fdne2bh93yg20dw07t7wh (1).gif\"/></p>', '1496817911', '2017-06-07 14:45:11', null, null, '0', '0', '127', '1', '0', '', '', null);
 
 -- ----------------------------
 -- Table structure for ys_auth_group
@@ -226,6 +225,34 @@ INSERT INTO `ys_auth_rule_group` VALUES ('1', '基本');
 INSERT INTO `ys_auth_rule_group` VALUES ('2', '默认');
 
 -- ----------------------------
+-- Table structure for ys_config
+-- ----------------------------
+DROP TABLE IF EXISTS `ys_config`;
+CREATE TABLE `ys_config` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL COMMENT '字段名',
+  `table_name` varchar(255) NOT NULL COMMENT '中文名',
+  `data` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='站点设置';
+
+-- ----------------------------
+-- Records of ys_config
+-- ----------------------------
+INSERT INTO `ys_config` VALUES ('1', 'site_title', '网站名称', '房向标--周六看房团');
+INSERT INTO `ys_config` VALUES ('2', 'site_subtitle', '网站副标题', '西藏旅游，西藏旅游攻略，拉萨旅游，拉萨旅游攻略');
+INSERT INTO `ys_config` VALUES ('3', 'site_description', '网站描述', '这是网站描述，详细描述');
+INSERT INTO `ys_config` VALUES ('4', 'site_email', 'EMAIL', '4025957@qq.com');
+INSERT INTO `ys_config` VALUES ('5', 'site_keywords', '关键词', '西藏旅游，西藏旅游攻略，拉萨旅游，拉萨旅游攻略');
+INSERT INTO `ys_config` VALUES ('6', 'site_license', '网站执照', '400-088-1087');
+INSERT INTO `ys_config` VALUES ('7', 'site_phone', '联系电话', '400-088-1087');
+INSERT INTO `ys_config` VALUES ('8', 'site_qq', '联系QQ', '4025957');
+INSERT INTO `ys_config` VALUES ('9', 'site_url', '网站地址', 'www.baidu.com');
+INSERT INTO `ys_config` VALUES ('10', 'site_address', '公司地址', '桂林市象山区东安街60号');
+INSERT INTO `ys_config` VALUES ('11', 'site_copyright', '备案号', '桂ICP备15003556号');
+INSERT INTO `ys_config` VALUES ('12', 'site_statistics', '统计代码', '');
+
+-- ----------------------------
 -- Table structure for ys_left_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `ys_left_menu`;
@@ -255,8 +282,8 @@ INSERT INTO `ys_left_menu` VALUES ('26', '文字消息回复', 'javascript:;', n
 INSERT INTO `ys_left_menu` VALUES ('27', '图片消息回复', 'javascript:;', null, '1', null, null, '0', '0', '10');
 INSERT INTO `ys_left_menu` VALUES ('28', '自定义菜单', 'javascript:;', null, '1', null, null, '0', '0', '15');
 INSERT INTO `ys_left_menu` VALUES ('29', '微信设置', 'javascript:;', null, '1', null, null, '0', '0', '20');
-INSERT INTO `ys_left_menu` VALUES ('30', '文章管理', '/manager/Article', null, '0', '1', null, '0', '0', '5');
-INSERT INTO `ys_left_menu` VALUES ('31', '上传文件库', '/manager/uploadfile', null, '0', '1', null, '0', '0', '99');
+INSERT INTO `ys_left_menu` VALUES ('30', '文章管理', '/manager/Article', null, '1', '1', null, '0', '0', '5');
+INSERT INTO `ys_left_menu` VALUES ('31', '上传文件库', '/manager/uploadfile', null, '1', '1', null, '0', '0', '99');
 
 -- ----------------------------
 -- Table structure for ys_manager_topmenu
@@ -326,10 +353,8 @@ CREATE TABLE `ys_uploadfile` (
   `weight` int(11) DEFAULT NULL COMMENT '排序(数字越大越靠前)-text',
   `param` text COMMENT '参数-textarea-2',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ys_uploadfile
 -- ----------------------------
-INSERT INTO `ys_uploadfile` VALUES ('14', '736e4f4f872fe382768a148bae4a8166.gif', '\\uploads\\20170607\\736e4f4f872fe382768a148bae4a8166.gif', '2', 'master', '1496801755', '2017-06-07 10:15:55', '1496801755', '2017-06-07 10:15:55', null, null);
-INSERT INTO `ys_uploadfile` VALUES ('19', '49d6d9e95194ec256f21eb71efef29bb.pdf', '\\uploads\\20170607\\49d6d9e95194ec256f21eb71efef29bb.pdf', '2', 'master', '1496801936', '2017-06-07 10:18:56', '1496801936', '2017-06-07 10:18:56', null, null);

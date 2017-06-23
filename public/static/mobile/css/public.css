@@ -1,0 +1,258 @@
+@charset "utf-8";
+/* CSS Document */
+body,p,ul,li,span{padding:0px;margin:0px;}
+body{ font-family:"microsoft yahei"!important;width:100%;overflow-x:hidden;position:relative;}
+ul,ul>li{list-style:none;}
+li:hover{cursor:pointer;}
+img{border:0px;}
+a{text-decoration:none;}
+a:hover{ text-decoration:none !important;cursor:pointer;}
+/* 让padding不再撑大容器 */
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.wrap1000{
+	width:1000px;
+	margin-left:auto;
+	margin-right:auto;}
+.wrap1280{
+	width:1280px;
+	margin-left:auto;
+	margin-right:auto;}
+.wrap1920{
+	width:1920px;
+	margin-left:auto;
+	margin-right:auto;}
+.wrap100{
+	clear:both;
+	width:100%;}
+.min-wrap1000{
+	min-width:1000px;}
+	
+.box-shadow{box-shadow: 0 6px 12px rgba(0,0,0,0.175);}
+
+.label.label-999{
+	border:1px solid #999;
+	color:#999 !important;
+	font-weight:normal;}
+	
+.label.label-999:hover{
+	border-color: #dd9000;
+	color:#FFF !important;
+	background-color:#ffab17;}
+	
+.label.label-red{
+	border:1px solid #F68181;
+	background-color:#F68181;
+	color:#FFF !important;
+	font-weight:normal;}
+	
+.label.label-red:hover{
+	color:#F68181 !important;
+	background-color:#FFF;}
+	
+.inline_block{
+	display:inline-block;}
+	
+.form-horizontal .text-inline{
+	padding-top:7px;}
+
+/*全局背景颜色*/
+.bg-white{ background-color:#FFF !important;}
+.bg-green{ background-color:#3bb107 !important;}
+.bg-fa{ background-color: #FAFAFA !important;}
+.bg-gray{ background-color:#F7F7F7 !important;}
+.bg-ECF0F1{ background-color:#ECF0F1 !important;}
+.bg-red{ background-color: #fe0000 !important;}
+.bg-blue{ background-color: #0000fe !important;}
+.bg-333{ background-color: #333 !important;}
+/*全局主体盒子*/
+.body_main{ padding-top:15px;padding-bottom:15px;}
+/*全局小盒子*/
+.body_small{ padding-top:5px;padding-bottom:5px;}
+/*全局内容盒子*/
+.body_text{ padding-left:15px;padding-right:15px;}
+/*全局小内容盒子*/
+.body_text-small{ padding-left:5px;padding-right:5px;}
+
+.margin-bottom-40{
+	margin-bottom:40px !important;}
+	
+.margin-bottom-35{
+	margin-bottom:35px !important;}
+	
+.margin-bottom-30{
+	margin-bottom:30px !important;}
+	
+.margin-bottom-25{
+	margin-bottom:25px !important;}
+
+.margin-bottom-20{
+	margin-bottom:20px !important;}
+
+.margin-bottom-15{
+	margin-bottom:15px !important;}
+
+.margin-bottom-10{
+	margin-bottom:10px !important;}
+	
+.margin-bottom-5{
+	margin-bottom:5px !important;}
+	
+.margin-bottom-0{
+	margin-bottom:0px !important;}
+
+.margin-top-25{
+	margin-top:25px !important;}
+
+.margin-top-20{
+	margin-top:20px !important;}
+	
+.margin-top-15{
+	margin-top:15px !important;}
+	
+.margin-top-10{
+	margin-top:10px !important;}
+	
+.margin-top-5{
+	margin-top:5px !important;}
+	
+.margin-top-0{
+	margin-top:0px !important;}
+	
+.margin-left-25{
+	margin-left:25px !important;}
+	
+.margin-left-15{
+	margin-left:15px !important;}
+	
+.margin-left-10{
+	margin-left:10px !important;}
+	
+.margin-left-5{
+	margin-left:5px !important;}
+	
+.margin-right-25{
+	margin-right:25px !important;}
+
+.margin-right-20{
+	margin-right:20px !important;}
+	
+.margin-right-15{
+	margin-right:15px !important;}
+	
+.margin-right-10{
+	margin-right:10px !important;}
+
+.margin-right-5{
+	margin-right:5px !important;}
+		
+.margin-right-3{
+	margin-right:3px !important;}
+
+.unpadding{
+	padding:0 !important;}
+	
+.unpadding-left{
+	padding-left:0 !important;}
+	
+.unpadding-right{
+	padding-right:0 !important;}
+	
+.unmargin{
+	margin:0 !important;}
+	
+.unborder{
+	border:none !important;}
+	
+.only-left-border{
+	border-bottom:none !important;
+	border-top:none !important;
+	border-right:none !important;}
+
+/*超大按钮*/
+.btn-vlg{
+	padding: 10px 62px !important;
+	font-size: 29px !important;
+	line-height: 1.3333333 !important;
+	border-radius: 6px !important;}
+	
+/*全局颜色*/
+.color-333 ,a.color-333{
+	color:#333;}
+
+.color-666 ,a.color-666{
+	color:#666 !important;}
+	
+.color-999 ,a.color-999{
+	color:#999 !important;}
+	
+.color-black ,a.color-black{
+	color:#000000 !important;}
+	
+.color-9a9a ,a.color-9a9a{
+	color:#9A9A9A !important;}
+	
+.color-red ,a.color-red{
+	color:#C31403!important;}
+	
+.color-fe0 ,a.color-fe0{
+	color:#fe0000 !important;}
+	
+.color-white ,a.color-white{
+	color:#FFF !important;}
+	
+.color-blue ,a.color-blue{
+	color:#09F !important;}
+	
+.color-deepblue ,a.color-deepblue{
+	color:#005BCC !important;}
+	
+.color-green ,a.color-green{
+	color:#16A086 !important;}
+	
+.color-yellow ,a.color-yellow{
+	color:#FFA800 !important;}
+	
+.color-orange ,a.color-orange{
+	color:#FC6B18 !important;}
+	
+/*不隐藏*/
+.nohidden{
+	overflow:visible !important;}
+	
+/*更小的字体*/
+.moresmall{
+	font-size:10px !important;}
+	
+/*大字体*/
+.big{
+	font-size:16px !important;}
+	
+/*更大的字体*/
+.morebig{
+	font-size:18px !important;}
+	
+.f_24{
+	font-size:24px !important;}
+	
+/*图片控制*/
+.img_control{
+	width:100%;}
+	
+/*对齐控制*/
+.text-left-imp{
+	text-align:left !important;}
+	
+.text-right-imp{
+	text-align:right !important;}
+	
+/*调整bs图标位置*/
+.icon-top-3{
+	top:3px !important;}
+	
+/*强制换行*/
+.word-break{
+	word-break:break-all;}
